@@ -6,6 +6,7 @@
 import re
 import sys
 import numpy as np
+import math
 
 
 def sanitize(matrix_row):
@@ -24,11 +25,12 @@ content_print_1 = "".join(content_print)
 #content_print_2 = tuple(content_print('\n')[:-1])
 content_print_2 = content_print_1.split('\n')
 
-print(content_print_2[1])
+#print(content_print_2[1])
 
 volume = sanitize(content_print_2[1].split(" "))
 #print("Volume ", volume[4], volume[5], volume[6])
 
+print(volume[1],volume[2],volume[7],volume[8])
 print(content_print_2[2])
 
 #print(content_print_2[5])
@@ -82,19 +84,19 @@ bohr_radius_angs = real_numbers(bohr_radius_angs)
 
 coeff = alat[0] * bohr_radius_angs[0]
 
-cell_matrix = coeff * np.array(cell_matrix)
+cell_matrix = np.array(cell_matrix)
 
 matrix_row_1 = real_numbers(matrix_row_1)
 matrix_row_2 = real_numbers(matrix_row_2)
 matrix_row_3 = real_numbers(matrix_row_3)
 
-#print(matrix_row_1)
+#print(cell_matrix)
 
-norm1 = matrix_row_1[0]*matrix_row_1[0] + matrix_row_1[1]*matrix_row_1[1] + matrix_row_1[2]*matrix_row_1[2]
-norm2 = matrix_row_2[0]*matrix_row_2[0] + matrix_row_2[1]*matrix_row_2[1] + matrix_row_2[2]*matrix_row_2[2]
-norm3 = matrix_row_3[0]*matrix_row_3[0] + matrix_row_3[1]*matrix_row_3[1] + matrix_row_3[2]*matrix_row_3[2]
+norm1 = math.sqrt(matrix_row_1[0]*matrix_row_1[0] + matrix_row_1[1]*matrix_row_1[1] + matrix_row_1[2]*matrix_row_1[2])
+norm2 = math.sqrt(matrix_row_2[0]*matrix_row_2[0] + matrix_row_2[1]*matrix_row_2[1] + matrix_row_2[2]*matrix_row_2[2])
+norm3 = math.sqrt(matrix_row_3[0]*matrix_row_3[0] + matrix_row_3[1]*matrix_row_3[1] + matrix_row_3[2]*matrix_row_3[2])
 
-print("a:",norm1*coeff,"b:",norm2*coeff,"c:",norm3*coeff)
+print("a:",round(norm1*coeff,5),"b:",round(norm2*coeff,5),"c:",round(norm3*coeff,5))
 
 #gamma = sum([x*y in x,y in zip(matrix_row_1,matrix_row_2)])
 gamma = np.dot(matrix_row_1,matrix_row_2)/( norm1 * norm2 )
@@ -155,7 +157,6 @@ espresso_out.close()
 
 
    # volume = re.findall(r'new unit-cell volume',line,re.DOTALL)
-
 
 
 
