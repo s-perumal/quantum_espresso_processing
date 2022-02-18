@@ -3,6 +3,7 @@
 # 2020 March
 #espresso_read.py espresso_output_file
 
+import os
 import re
 import sys
 import numpy as np
